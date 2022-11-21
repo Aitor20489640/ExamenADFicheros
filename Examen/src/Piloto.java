@@ -1,12 +1,21 @@
 package Examen.src;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@XmlRootElement(name = "driver")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Piloto {
+    @XmlElement(name = "name")
     private String nombre;
+    @XmlAttribute(name = "number")
     private int numero;
+    @XmlElement(name = "team")
     private String equipo;
+    @XmlElement(name = "dob")
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaNacimiento;
 
     // Getters

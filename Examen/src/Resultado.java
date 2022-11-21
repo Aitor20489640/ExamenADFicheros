@@ -1,6 +1,10 @@
 package Examen.src;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+
 public class Resultado {
+    @JsonDeserialize(using = CustomResultadoDeserializer.class)
     private Circuito circuito;
     private Piloto piloto;
     private int posicion; // Si un piloto no acaba, su posición final será -1
