@@ -52,8 +52,12 @@ public class Mundial {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
 
+
+        Map<String, Piloto> mapaPilotos = pilotos.stream().collect(Collectors.toMap(Piloto::getNombre, p -> p));
+        Map<String, Circuito> mapaCircuitos = circuitos.stream().collect(Collectors.toMap(Circuito::getPais, c -> c));
+
         SimpleModule module = new SimpleModule("CustomResultadoDeserializer", new Version(1, 0, 0, null, null, null));
-        module.addDeserializer(Resultado.class, new CustomResultadoDeserializer(Resultado.class, circuitos, pilotos));
+        module.addDeserializer(Resultado.class, new CustomResultadoDeserializer(Resultado.class, mapaCircuitos, mapaPilotos));
         objectMapper.registerModule(module);
         try {
             resultadoList = objectMapper.readValue(ruta.toFile(), new TypeReference<>() {});
